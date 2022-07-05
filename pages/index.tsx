@@ -1,12 +1,12 @@
 import {
-  AppShell, Box, Button, Burger, Code, Container, Divider,
+  AppShell, Box, Button, Burger, Container, Divider,
   MediaQuery, Navbar, Footer, Group, Header,
-  Stack, Text, Title, TypographyStylesProvider,
+  Stack, Title, TypographyStylesProvider,
   useMantineTheme,
 } from "@mantine/core"
 import Head from "next/head"
-import Image from "next/image"
 import * as React from "react"
+import {Carousel, Link, HorizontalCard} from "components"
 
 export default function HomePage() {
   const theme = useMantineTheme()
@@ -55,14 +55,55 @@ export default function HomePage() {
     >
       <Background/>
       <Container size="lg">
-        <h1>First</h1>
-        <p>First</p>
-        <Code block>{`
-console.log(Hi!)
-console.log(Hi!)
-console.log(Hi!)
-        `}</Code>
+        <Title order={2} mt={32} mb={24}>Recent Testimonials</Title>
+        <Carousel
+          items={[
+            {
+              body: `<p>Extend default theme with any amount of additional colors, replace shadows, radius, spacing, fonts and many other properties to match your design requirements. Mantine theme is just an object, you can subscribe to it in any part of application via context and use it to build your own components.</p>`,
+              createdAt: new Date().toLocaleDateString(),
+              author: {
+                name: "John Doe",
+                image: "https://images.unsplash.com/photo-1624298357597-fd92dfbec01d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80"
+              },
+            },
+            {
+              body: `<p>Replace shadows, radius, spacing, fonts and many other properties to match your design requirements. Mantine theme is just an object, you can subscribe to it in any part of application via context and use it to build your own components.</p>`,
+              createdAt: new Date().toLocaleDateString(),
+              author: {
+                name: "Jane Doe",
+                image: "https://images.unsplash.com/photo-1624298357597-fd92dfbec01d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80"
+              },
+            }
+          ]}
+        />
 
+        <Title order={2} mt={32} mb={24}>Recent Posts</Title>
+        <Stack spacing={24}>
+          <HorizontalCard
+            postedAt={new Date(2017, 1, 9).toLocaleDateString()}
+            title="Paqmind is back. What changed since 2020?"
+            body={`<p>Extend default theme with any amount of additional colors, replace shadows, radius, spacing, fonts and many other properties to match your design requirements. Mantine theme is just an object, you can subscribe to it in any part of application via context and use it to build your own components.</p>`}
+            tags={["react", "typescript"]}
+          />
+
+          <HorizontalCard
+            postedAt={new Date(2016, 5, 1).toLocaleDateString()}
+            title="Second Post"
+            body={`<p>Replace shadows, radius, spacing, fonts and many other properties to match your design requirements. Mantine theme is just an object, you can subscribe to it in any part of application via context and use it to build your own components.</p>`}
+          />
+
+          <HorizontalCard
+            postedAt={new Date(2015, 11, 22).toLocaleDateString()}
+            title="Oldest Post"
+            body={`<p>Extend default theme with any amount of additional colors, replace shadows, radius, spacing, fonts and many other properties to match your design requirements. Mantine theme is just an object, you can subscribe to it in any part of application via context and use it to build your own components.</p>`}
+            tags={["react"]}
+          />
+        </Stack>
+        <p>
+          Read more posts on our <Link href="#">Blog</Link> page.
+        </p>
+
+        <Title order={2} mt={32} mb={24}>Typography Test</Title>
         <TypographyStylesProvider mx="-1rem" px="1rem" sx={{backgroundColor: "white"}}>
           <div dangerouslySetInnerHTML={{__html: `
             <h1>H1 header</h1>
@@ -127,11 +168,11 @@ function TopMenu({opened, toggle}: TopMenuProps): JSX.Element {
             <Title mr="0.5rem" order={2}>Q</Title>
             <Title mr="3rem" order={4}>paqmind</Title>
             <MediaQuery smallerThan="sm" styles={{display: "none"}}>
-              <Group spacing="lg">
+              <Group spacing={32}>
                 <span>First</span>
-                <span>Blog</span>
-                <span>Links</span>
-                <span>Other</span>
+                <Link href="https://paqmind.com/blog" variant="text">Blog</Link>
+                <Link href="/text">Text Sandbox</Link>
+                <Link href="/code">Code Sandbox</Link>
               </Group>
             </MediaQuery>
           </Group>
